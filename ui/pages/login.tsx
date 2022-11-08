@@ -11,6 +11,7 @@ import {
   Button,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { showNotification, updateNotification } from "@mantine/notifications";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
@@ -41,9 +42,29 @@ export default function Auth() {
     AxiosError,
     Parameters<typeof login>["0"]
   >(login, {
-    onSuccess: (da) => {
-      console.log(da);
-      // router.push("/");
+    onMutate: () => {
+      showNotification({
+        id: "login",
+        title: "Logging in",
+        message: "Please wait...",
+        loading: true,
+      });
+    },
+    onSuccess: () => {
+      updateNotification({
+        id: "login",
+        title: "Success",
+        message: "Successfully logged in",
+      });
+
+      router.push("/login");
+    },
+    onError: (e) => {
+      updateNotification({
+        id: "login",
+        title: "Error",
+        message: e.response?.data as string,
+      });
     },
   });
   return (

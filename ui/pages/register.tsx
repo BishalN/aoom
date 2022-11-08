@@ -71,7 +71,6 @@ export default function Auth() {
       router.push("/login");
     },
     onError: (e) => {
-      console.log(e);
       updateNotification({
         id: "register",
         title: "Error",
