@@ -57,7 +57,7 @@ export default function Auth() {
         message: "Successfully logged in",
       });
 
-      router.push("/login");
+      router.push("/dashboard");
     },
     onError: (e) => {
       updateNotification({
