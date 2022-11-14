@@ -100,7 +100,7 @@ const data = [
   { link: "", label: "Other Settings", icon: IconSettings },
 ];
 
-export function CustomNavbar() {
+export function CustomNavbar({ hidden }: { hidden: boolean }) {
   const { classes, cx } = useStyles();
   const [active, setActive] = useState("Billing");
 
@@ -122,25 +122,15 @@ export function CustomNavbar() {
   ));
 
   return (
-    <Navbar height={700} width={{ sm: 300 }} p="md">
-      <Navbar.Section grow>
-        <Group className={classes.header} position="apart">
-          <Title>Aoom</Title>
-          <Code sx={{ fontWeight: 700 }}>v3.1.2</Code>
-        </Group>
-        {links}
-      </Navbar.Section>
+    <Navbar
+      p="md"
+      hiddenBreakpoint="sm"
+      hidden={!hidden}
+      width={{ sm: 200, lg: 300 }}
+    >
+      <Navbar.Section grow>{links}</Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
-        <a
-          href="#"
-          className={classes.link}
-          onClick={(event) => event.preventDefault()}
-        >
-          <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
-          <span>Change account</span>
-        </a>
-
         <a
           href="#"
           className={classes.link}
